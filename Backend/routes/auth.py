@@ -8,7 +8,10 @@ from utils.security import (
     hash_password,
     verify_password
 )
+from utils.dependencies import get_current_user
+from fastapi.security import OAuth2PasswordRequestForm
 from utils.jwt import create_access_token
+
 
 router = APIRouter()
 
@@ -29,26 +32,41 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     return {"message": "User Registered Successfully"} 
 
 @router.post("/login")
-def login(user: UserLogin, db: Session = Depends(get_db)):
+def login(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: Session = Depends(get_db)
+):
 
     db_user = db.query(User).filter(
-        User.email == user.email
+        User.email == form_data.username
     ).first()
 
     if not db_user:
         return {"message": "User not found"}
 
     if not verify_password(
-        user.password,
+        form_data.password,
         db_user.password
     ):
         return {"message": "Invalid password"}
 
     token = create_access_token(
-    {"sub": db_user.email}
-)
+        {"sub": db_user.email}
+    )
 
     return {
         "access_token": token,
         "token_type": "bearer"
     }
+
+@router.get("/profile")
+def profile(
+    current_user: User = Depends(get_current_user)
+):
+    return {
+        "id": current_user.id,
+        "name": current_user.name,
+        "email": current_user.email
+    }
+
+

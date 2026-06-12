@@ -9,3 +9,10 @@ class UserCreate(BaseModel):
 class UserLogin(BaseModel):
     email: str
     password: str
+
+class ProductCreate(BaseModel):
+    name: str
+    description: str
+    price: float
+    stock_quantity: int
+    image_url: str
