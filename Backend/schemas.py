@@ -16,3 +16,10 @@ class ProductCreate(BaseModel):
     price: float
     stock_quantity: int
     image_url: str
+
+class ProductUpdate(BaseModel):
+    name: str
+    description: str
+    price: float
+    stock_quantity: int
+    image_url: str

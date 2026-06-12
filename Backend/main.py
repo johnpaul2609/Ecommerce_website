@@ -4,6 +4,7 @@ from models import Base
 from routes.auth import router as auth_router
 from routes.products import router as product_router
 
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
