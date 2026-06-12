@@ -23,3 +23,11 @@ class ProductUpdate(BaseModel):
     price: float
     stock_quantity: int
     image_url: str
+
+class CartCreate(BaseModel):
+    product_id: int
+    quantity: int
+
+class OrderResponse(BaseModel):
+    message: str
+    total_amount: float
