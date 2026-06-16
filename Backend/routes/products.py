@@ -2,16 +2,18 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from database import get_db
-from models import Product
+from models import Product,User
 from fastapi import HTTPException
 from schemas import ProductCreate, ProductUpdate
+from utils.dependencies import get_current_admin
 
 router = APIRouter()
 
 @router.post("/products")
 def create_product(
     product: ProductCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_admin: User = Depends(get_current_admin)
 ):
 
     new_product = Product(
@@ -53,7 +55,8 @@ def get_product(
 @router.delete("/products/{product_id}")
 def delete_product(
     product_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_admin: User = Depends(get_current_admin)
 ):
 
     product = db.query(Product).filter(
@@ -77,7 +80,8 @@ def delete_product(
 def update_product(
     product_id: int,
     updated_product: ProductUpdate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_admin: User = Depends(get_current_admin)
 ):
 
     product = db.query(Product).filter(
