@@ -52,6 +52,26 @@ oauth-is used another platform to login like facebook,google
 
 Bearer is a type of authentication
 
+Admin
+  ↓
+Create Products
+Update Products
+Delete Products
+
+Customer
+  ↓
+View Products
+Add To Cart
+Place Orders
+
+
+				REACT
+
+React is a JavaScript library used to build user interfaces.
+
+
+
+
 
 
 	

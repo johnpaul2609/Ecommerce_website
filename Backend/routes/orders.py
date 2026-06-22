@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models import Order, OrderItem, Cart, Product, User
 from utils.dependencies import get_current_user
+from models import Order, OrderItem, Cart, Product, User
 
 router = APIRouter()
 
@@ -92,3 +93,45 @@ def get_orders(
     ).all()
 
     return orders
+
+@router.get("/orders/{order_id}")
+def get_order_details(
+    order_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
+    order = db.query(Order).filter(
+        Order.id == order_id,
+        Order.user_id == current_user.id
+    ).first()
+
+    if not order:
+        raise HTTPException(
+            status_code=404,
+            detail="Order not found"
+        )
+
+    order_items = db.query(OrderItem).filter(
+        OrderItem.order_id == order_id
+    ).all()
+
+    items = []
+
+    for item in order_items:
+
+        product = db.query(Product).filter(
+            Product.id == item.product_id
+        ).first()
+
+        items.append({
+            "product_name": product.name,
+            "quantity": item.quantity,
+            "price": item.price
+        })
+
+    return {
+        "order_id": order.id,
+        "total_amount": order.total_amount,
+        "items": items
+    }
