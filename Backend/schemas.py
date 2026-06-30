@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 
 class UserCreate(BaseModel):
@@ -16,6 +17,7 @@ class ProductCreate(BaseModel):
     price: float
     stock_quantity: int
     image_url: str
+    category: str
 
 class ProductUpdate(BaseModel):
     name: str
@@ -23,11 +25,22 @@ class ProductUpdate(BaseModel):
     price: float
     stock_quantity: int
     image_url: str
+    category: str
 
 class CartCreate(BaseModel):
     product_id: int
     quantity: int
 
+
 class OrderResponse(BaseModel):
-    message: str
+    id: int
     total_amount: float
+    status: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+        
+
+class WishlistCreate(BaseModel):
+    product_id: int

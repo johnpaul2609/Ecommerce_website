@@ -17,12 +17,13 @@ def create_product(
 ):
 
     new_product = Product(
-        name=product.name,
-        description=product.description,
-        price=product.price,
-        stock_quantity=product.stock_quantity,
-        image_url=product.image_url
-    )
+            name=product.name,
+            description=product.description,
+            price=product.price,
+            stock_quantity=product.stock_quantity,
+            image_url=product.image_url,
+            category=product.category
+        )
 
     db.add(new_product)
     db.commit()
@@ -99,6 +100,7 @@ def update_product(
     product.price = updated_product.price
     product.stock_quantity = updated_product.stock_quantity
     product.image_url = updated_product.image_url
+    product.category = updated_product.category
 
     db.commit()
 
