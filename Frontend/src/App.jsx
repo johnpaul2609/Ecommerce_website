@@ -12,6 +12,8 @@ import AdminOrders from "./components/AdminOrders";
 import ForgotPassword from "./components/ForgotPassword";
 import Profile from "./components/Profile";
 import Wishlist from "./components/Wishlist";
+import ProductDetails from "./components/ProductDetails";
+import { Routes, Route } from "react-router-dom";
 
 
 
@@ -37,6 +39,8 @@ function App() {
   const [showWishlist, setShowWishlist] = useState(false);
   const [wishlistItems, setWishlistItems] = useState([]);
   const [showOrders, setShowOrders] = useState(false)
+  const [paymentMethod, setPaymentMethod] =
+    useState("COD");
   const totalAmount = Array.isArray(cartItems)
     ? cartItems.reduce(
         (total, item) =>
@@ -485,14 +489,54 @@ function App() {
       })
   }
   const placeOrder = () => {
+    if (paymentMethod === "ONLINE") {
+      fetch(
+        `http://127.0.0.1:8000/create-payment?amount=${totalAmount}`,
+        {
+          method: "POST",
+        }
+      )
+        .then((response) => response.json())
+        .then((order) => {
+          const options = {
+            key: "rzp_test_T7wCONwF2gjBP2",
 
-    const token = localStorage.getItem("token")
+            amount: order.amount,
+
+            currency: order.currency,
+
+            name: "John Ecommerce Store",
+
+            description: "Order Payment",
+
+            order_id: order.id,
+
+            handler: function (response) {
+              alert("Payment Successful!");
+
+              placeOrderAfterPayment();
+            },
+          };
+
+          const rzp = new window.Razorpay(options);
+
+          rzp.open();
+        });
+
+      return;
+    }
+
+    const token = localStorage.getItem("token");
 
     fetch("http://127.0.0.1:8000/orders", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${token}`
-      }
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        payment_method: paymentMethod,
+      }),
     })
       .then((response) => {
         if (response.status === 401) {
@@ -504,17 +548,42 @@ function App() {
       .then((data) => {
         if (!data) return;
 
-        console.log(data)
+        console.log(data);
 
-        alert(data.message)
+        alert(data.message);
 
-        setCartItems([])
+        setCartItems([]);
 
-        loadProducts()
+        loadProducts();
 
-        setShowProducts(true)
-      })
-  }
+        setShowProducts(true);
+      });
+  };
+
+  const placeOrderAfterPayment = () => {
+    const token = localStorage.getItem("token");
+
+    fetch("http://127.0.0.1:8000/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        payment_method: "ONLINE",
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert(data.message);
+
+        setCartItems([]);
+
+        loadProducts();
+
+        setShowProducts(true);
+      });
+  };
   const logoutUser = () => {
     localStorage.clear();
 
@@ -582,159 +651,188 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-
-      {!isLoggedIn ? (
-
-        showRegister ? (
-          <Register
-            setShowRegister={setShowRegister}
-          />
-        ) : (
-          showForgotPassword ? (
-            <ForgotPassword
-              setShowForgotPassword={setShowForgotPassword}
-            />
-          ) : showRegister ? (
-            <Register
-              setShowRegister={setShowRegister}
-            />
-          ) : (
-            <Login
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-              loginUser={loginUser}
-              setShowRegister={setShowRegister}
-              setShowForgotPassword={setShowForgotPassword}
-            />
-          )
-        )
-
-      ) : (
-
-        <div>
-
-          <Navbar
-            loadProducts={() => {
-              loadProducts();
-              setShowProducts(true);
-              setShowOrders(false);
-              setShowProfile(false);
-              setShowWishlist(false);
-            }}
-            viewCart={viewCart}
-            viewOrders={viewOrders}
-            viewWishlist={viewWishlist}
-            viewProfile={viewProfile}
-            logoutUser={logoutUser}
-          />
-
-          {isAdmin && (
-            <>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-
-                <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
-                  <h3 className="text-slate-500">
-                    Users
-                  </h3>
-
-                  <h2 className="text-4xl font-bold text-blue-600">
-                    {stats.total_users}
-                  </h2>
-                </div>
-
-                <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
-                  <h3 className="text-slate-500">
-                    Products
-                  </h3>
-
-                  <h2 className="text-4xl font-bold text-green-600">
-                    {stats.total_products}
-                  </h2>
-                </div>
-
-                <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
-                  <h3 className="text-slate-500">
-                    Orders
-                  </h3>
-
-                  <h2 className="text-4xl font-bold text-purple-600">
-                    {stats.total_orders}
-                  </h2>
-                </div>
-
-                <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
-                  <h3 className="text-slate-500">
-                    Revenue
-                  </h3>
-
-                  <h2 className="text-4xl font-bold text-orange-600">
-                    ₹{stats.total_revenue}
-                  </h2>
-                </div>
-
-              </div>
-              <AdminDashboard
-                onAddProduct={addProduct}
-                editingProduct={editingProduct}
-                onUpdateProduct={updateProduct}
-              />
-
-              <AdminProducts
-                products={products}
-                deleteProduct={deleteProduct}
-                editProduct={setEditingProduct}
-              />
-
-              <AdminOrders
-                orders={orders}
-                loadAdminOrders={loadAdminOrders}
-              />
-            </>
-          )}
-
-
-          {!isAdmin && (
-            <>
-              {showProfile ? (
-                <Profile />
-              ) : showWishlist ? (
-                <Wishlist wishlistItems={wishlistItems} removeFromWishlist={removeFromWishlist} />
-              ) : showOrders ? (
-                <OrderHistory orders={orders} />
-              ) : showProducts ? (
-                <ProductList
-                  products={products}
-                  addToCart={addToCart}
-                  addToWishlist={addToWishlist}
-                  removeFromWishlist={removeFromWishlist}
-                  wishlistItems={wishlistItems}
-                  searchTerm={searchTerm}
-                  setSearchTerm={setSearchTerm}
-                  selectedCategory={selectedCategory}
-                  setSelectedCategory={setSelectedCategory}
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div style={{ padding: "20px" }}>
+            {!isLoggedIn ? (
+              showRegister ? (
+                <Register
+                  setShowRegister={setShowRegister}
                 />
               ) : (
-                <Cart
-                  cartItems={cartItems}
-                  totalAmount={totalAmount}
-                  updateQuantity={updateQuantity}
-                  removeFromCart={removeFromCart}
-                  placeOrder={placeOrder}
+                showForgotPassword ? (
+                  <ForgotPassword
+                    setShowForgotPassword={
+                      setShowForgotPassword
+                    }
+                  />
+                ) : showRegister ? (
+                  <Register
+                    setShowRegister={setShowRegister}
+                  />
+                ) : (
+                  <Login
+                    email={email}
+                    setEmail={setEmail}
+                    password={password}
+                    setPassword={setPassword}
+                    loginUser={loginUser}
+                    setShowRegister={setShowRegister}
+                    setShowForgotPassword={
+                      setShowForgotPassword
+                    }
+                  />
+                )
+              )
+            ) : (
+              <div>
+                <Navbar
+                  loadProducts={() => {
+                    loadProducts();
+                    setShowProducts(true);
+                    setShowOrders(false);
+                    setShowProfile(false);
+                    setShowWishlist(false);
+                  }}
+                  viewCart={viewCart}
+                  viewOrders={viewOrders}
+                  viewWishlist={viewWishlist}
+                  viewProfile={viewProfile}
+                  logoutUser={logoutUser}
                 />
-              )}
-            </>
-          )}
 
-        </div>
+                {isAdmin && (
+                  <>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                      <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <h3 className="text-slate-500">
+                          Users
+                        </h3>
 
-      )}
+                        <h2 className="text-4xl font-bold text-blue-600">
+                          {stats.total_users}
+                        </h2>
+                      </div>
 
-    </div>
-  )
+                      <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <h3 className="text-slate-500">
+                          Products
+                        </h3>
+
+                        <h2 className="text-4xl font-bold text-green-600">
+                          {stats.total_products}
+                        </h2>
+                      </div>
+
+                      <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <h3 className="text-slate-500">
+                          Orders
+                        </h3>
+
+                        <h2 className="text-4xl font-bold text-purple-600">
+                          {stats.total_orders}
+                        </h2>
+                      </div>
+
+                      <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <h3 className="text-slate-500">
+                          Revenue
+                        </h3>
+
+                        <h2 className="text-4xl font-bold text-orange-600">
+                          ₹{stats.total_revenue}
+                        </h2>
+                      </div>
+                    </div>
+                    <AdminDashboard
+                      onAddProduct={addProduct}
+                      editingProduct={editingProduct}
+                      onUpdateProduct={updateProduct}
+                    />
+
+                    <AdminProducts
+                      products={products}
+                      deleteProduct={deleteProduct}
+                      editProduct={setEditingProduct}
+                    />
+
+                    <AdminOrders
+                      orders={orders}
+                      loadAdminOrders={loadAdminOrders}
+                    />
+                  </>
+                )}
+
+                {!isAdmin && (
+                  <>
+                    {showProfile ? (
+                      <Profile />
+                    ) : showWishlist ? (
+                      <Wishlist
+                        wishlistItems={wishlistItems}
+                        removeFromWishlist={
+                          removeFromWishlist
+                        }
+                      />
+                    ) : showOrders ? (
+                      <OrderHistory orders={orders} />
+                    ) : showProducts ? (
+                      <ProductList
+                        products={products}
+                        addToCart={addToCart}
+                        addToWishlist={addToWishlist}
+                        removeFromWishlist={
+                          removeFromWishlist
+                        }
+                        wishlistItems={wishlistItems}
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                        selectedCategory={
+                          selectedCategory
+                        }
+                        setSelectedCategory={
+                          setSelectedCategory
+                        }
+                      />
+                    ) : (
+                      <Cart
+                        cartItems={cartItems}
+                        totalAmount={totalAmount}
+                        updateQuantity={
+                          updateQuantity
+                        }
+                        removeFromCart={
+                          removeFromCart
+                        }
+                        placeOrder={placeOrder}
+                        paymentMethod={paymentMethod}
+                        setPaymentMethod={
+                          setPaymentMethod
+                        }
+                      />
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        }
+      />
+      <Route
+        path="/product/:id"
+        element={
+          <ProductDetails
+            addToCart={addToCart}
+            addToWishlist={addToWishlist}
+            removeFromWishlist={removeFromWishlist}
+            wishlistItems={wishlistItems}
+          />
+        }
+      />
+    </Routes>
+  );
 }
 
 export default App

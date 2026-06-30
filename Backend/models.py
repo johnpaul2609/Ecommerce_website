@@ -42,6 +42,7 @@ class Order(Base):
     user_id = Column(Integer)
     total_amount = Column(Float)
     status = Column(String(20), default="Pending")
+    payment_method = Column(String(50))
 
     created_at = Column(
         DateTime,

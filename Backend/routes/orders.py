@@ -1,12 +1,13 @@
 from fastapi.responses import FileResponse
 from reportlab.pdfgen import canvas
 import os
-
+from razorpay_client import client
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from database import get_db
 from models import Order, OrderItem, Cart, Product, User
+from schemas import OrderCreate
 from utils.dependencies import get_current_user
 from models import Order, OrderItem, Cart, Product, User
 from utils.dependencies import (
@@ -46,6 +47,7 @@ def update_order_status(
 
 @router.post("/orders")
 def place_order(
+    order_data: OrderCreate,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -75,7 +77,8 @@ def place_order(
     new_order = Order(
         user_id=current_user.id,
         total_amount=total_amount,
-        status="Pending"
+        status="Pending",
+        payment_method=order_data.payment_method
     )
 
     db.add(new_order)
@@ -155,6 +158,7 @@ def get_orders(
             "id": order.id,
             "total_amount": order.total_amount,
             "status": order.status,
+            "payment_method": order.payment_method,
             "created_at": order.created_at,
             "items": items
         })
@@ -344,3 +348,14 @@ def download_invoice(
         media_type="application/pdf",
         filename=filename
     )
+    
+@router.post("/create-payment")
+def create_payment(amount: float):
+
+    payment = client.order.create({
+        "amount": int(amount * 100),
+        "currency": "INR",
+        "payment_capture": 1
+    })
+
+    return payment

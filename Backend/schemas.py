@@ -27,6 +27,9 @@ class ProductUpdate(BaseModel):
     image_url: str
     category: str
 
+class OrderCreate(BaseModel):
+    payment_method: str
+
 class CartCreate(BaseModel):
     product_id: int
     quantity: int

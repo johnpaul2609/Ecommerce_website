@@ -12,6 +12,8 @@ function Cart({
   updateQuantity,
   removeFromCart,
   placeOrder,
+  paymentMethod,
+  setPaymentMethod,
 }) {
   return (
     <div className="min-h-screen bg-slate-100 p-6">
@@ -193,6 +195,38 @@ function Cart({
                       ₹{totalAmount}
                     </span>
                   </div>
+
+                </div>
+
+                <div className="bg-white p-4 rounded-lg shadow mt-4">
+
+                  <h3 className="text-lg font-bold mb-3">
+                    Payment Method
+                  </h3>
+
+                  <label className="flex items-center gap-2 mb-2">
+                    <input
+                      type="radio"
+                      value="COD"
+                      checked={paymentMethod === "COD"}
+                      onChange={(e) =>
+                        setPaymentMethod(e.target.value)
+                      }
+                    />
+                    Cash On Delivery
+                  </label>
+
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      value="ONLINE"
+                      checked={paymentMethod === "ONLINE"}
+                      onChange={(e) =>
+                        setPaymentMethod(e.target.value)
+                      }
+                    />
+                    Online Payment
+                  </label>
 
                 </div>
 

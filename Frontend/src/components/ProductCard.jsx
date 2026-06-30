@@ -1,4 +1,5 @@
 import { FaHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function ProductCard({
   product,
@@ -7,6 +8,7 @@ function ProductCard({
   removeFromWishlist,
   wishlistItems,
 }) {
+  const navigate = useNavigate();
   const wishlistItem = wishlistItems?.find(
     (item) => item.product_id === product.id
   );
@@ -31,6 +33,9 @@ function ProductCard({
         <img
           src={product.image_url}
           alt={product.name}
+          onClick={() =>
+            navigate(`/product/${product.id}`)
+          }
           className="
             w-full
             h-52
@@ -38,6 +43,7 @@ function ProductCard({
             hover:scale-110
             transition-transform
             duration-500
+            cursor-pointer
           "
         />
 
@@ -93,12 +99,17 @@ function ProductCard({
 
         {/* Product Name */}
         <h2
+          onClick={() =>
+            navigate(`/product/${product.id}`)
+          }
           className="
             text-xl
             font-bold
             text-slate-800
             mb-2
             line-clamp-1
+            cursor-pointer
+            hover:text-blue-600
           "
         >
           {product.name}
