@@ -19,9 +19,7 @@ import { Routes, Route } from "react-router-dom";
 const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
 // Set API URL based on environment
-const API = isLocal 
-  ? "http://127.0.0.1:8000" 
-  : "https://ecommerce-website-7rjn.onrender.com";
+const API = "https://ecommerce-website-7rjn.onrender.com";
 
 function App() {
 
