@@ -17,7 +17,7 @@ function Profile() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/profile",
+        "https://ecommerce-website-7rjn.onrender.com/profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ function Profile() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/profile",
+        "https://ecommerce-website-7rjn.onrender.com/profile",
         {
           method: "PUT",
           headers: {

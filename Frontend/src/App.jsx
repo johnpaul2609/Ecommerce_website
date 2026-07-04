@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Login from "./components/Login"
 import Register from "./components/Register"
@@ -16,7 +15,7 @@ import Wishlist from "./components/Wishlist";
 import ProductDetails from "./components/ProductDetails";
 import { Routes, Route } from "react-router-dom";
 
-
+const API = "https://ecommerce-website-7rjn.onrender.com";
 
 function App() {
 
@@ -133,7 +132,7 @@ function App() {
     formData.append("username", email)
     formData.append("password", password)
 
-    fetch("http://127.0.0.1:8000/login", {
+    fetch(`${API}/login`, {
       method: "POST",
       body: formData
     })
@@ -186,7 +185,7 @@ function App() {
   }
   const loadProducts = () => {
 
-    fetch("http://127.0.0.1:8000/products")
+    fetch(`${API}/products`)
       .then((response) => response.json())
       .then((data) => {
         console.log(JSON.stringify(data, null, 2))
@@ -199,7 +198,7 @@ function App() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/products",
+        `${API}/products`,
         {
           method: "POST",
           headers: {
@@ -230,7 +229,7 @@ function App() {
 
     const token = localStorage.getItem("token");
 
-    fetch("http://127.0.0.1:8000/admin/orders", {
+    fetch(`${API}/admin/orders`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -244,7 +243,7 @@ function App() {
 
     const token = localStorage.getItem("token");
 
-    fetch("http://127.0.0.1:8000/admin/stats", {
+    fetch(`${API}/admin/stats`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -259,7 +258,7 @@ function App() {
 
     const token = localStorage.getItem("token")
 
-    fetch("http://127.0.0.1:8000/cart/add", {
+    fetch(`${API}/cart/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -288,7 +287,7 @@ function App() {
   const viewCart = () => {
     const token = localStorage.getItem("token");
 
-    fetch("http://127.0.0.1:8000/cart", {
+    fetch(`${API}/cart`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -314,7 +313,7 @@ function App() {
     const token = localStorage.getItem("token");
     console.log("Token being sent:", token);
 
-    fetch("http://127.0.0.1:8000/wishlist/add", {
+    fetch(`${API}/wishlist/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -339,7 +338,7 @@ function App() {
   const removeFromWishlist = (wishlistId) => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://127.0.0.1:8000/wishlist/${wishlistId}`, {
+    fetch(`${API}/wishlist/${wishlistId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -362,7 +361,7 @@ function App() {
   const refreshWishlistSilently = () => {
     const token = localStorage.getItem("token");
 
-    fetch("http://127.0.0.1:8000/wishlist", {
+    fetch(`${API}/wishlist`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -413,7 +412,7 @@ function App() {
 
     const token = localStorage.getItem("token");
 
-    fetch("http://127.0.0.1:8000/orders", {
+    fetch(`${API}/orders`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
@@ -443,7 +442,7 @@ function App() {
     const token = localStorage.getItem("token")
 
     fetch(
-      `http://127.0.0.1:8000/cart/${cartId}?action=${action}`,
+      `${API}/cart/${cartId}?action=${action}`,
       {
         method: "PUT",
         headers: {
@@ -469,7 +468,7 @@ function App() {
 
     const token = localStorage.getItem("token")
 
-    fetch(`http://127.0.0.1:8000/cart/${cartId}`, {
+    fetch(`${API}/cart/${cartId}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`
@@ -492,7 +491,7 @@ function App() {
   const placeOrder = () => {
     if (paymentMethod === "ONLINE") {
       fetch(
-        `http://127.0.0.1:8000/create-payment?amount=${totalAmount}`,
+        `${API}/create-payment?amount=${totalAmount}`,
         {
           method: "POST",
         }
@@ -529,7 +528,7 @@ function App() {
 
     const token = localStorage.getItem("token");
 
-    fetch("http://127.0.0.1:8000/orders", {
+    fetch(`${API}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -564,7 +563,7 @@ function App() {
   const placeOrderAfterPayment = () => {
     const token = localStorage.getItem("token");
 
-    fetch("http://127.0.0.1:8000/orders", {
+    fetch(`${API}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -607,7 +606,7 @@ function App() {
     const token = localStorage.getItem("token")
 
     const response = await fetch(
-      `http://127.0.0.1:8000/products/${productId}`,
+      `${API}/products/${productId}`,
       {
         method: "DELETE",
         headers: {
@@ -631,7 +630,7 @@ function App() {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-      `http://127.0.0.1:8000/products/${productId}`,
+      `${API}/products/${productId}`,
       {
         method: "PUT",
         headers: {

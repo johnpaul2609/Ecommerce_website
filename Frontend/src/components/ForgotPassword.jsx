@@ -21,7 +21,7 @@ function ForgotPassword({ setShowForgotPassword }) {
   const sendOtp = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/forgot-password?email=${email}`,
+        `https://ecommerce-website-7rjn.onrender.com/forgot-password?email=${email}`,
         {
           method: "POST",
         }
@@ -42,7 +42,7 @@ function ForgotPassword({ setShowForgotPassword }) {
   const verifyOtp = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/verify-otp?email=${email}&otp=${otp}`,
+        `https://ecommerce-website-7rjn.onrender.com/verify-otp?email=${email}&otp=${otp}`,
         {
           method: "POST",
         }
@@ -63,7 +63,7 @@ function ForgotPassword({ setShowForgotPassword }) {
   const resetPassword = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/reset-password?email=${email}&new_password=${newPassword}`,
+        `https://ecommerce-website-7rjn.onrender.com/reset-password?email=${email}&new_password=${newPassword}`,
         {
           method: "POST",
         }

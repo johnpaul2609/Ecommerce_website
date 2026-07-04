@@ -13,7 +13,7 @@ function AdminOrders({ orders, loadAdminOrders }) {
 
     try {
       await fetch(
-        `http://127.0.0.1:8000/admin/orders/${orderId}/status?status=${status}`,
+        `https://ecommerce-website-7rjn.onrender.com/admin/orders/${orderId}/status?status=${status}`,
         {
           method: "PUT",
           headers: {

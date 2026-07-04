@@ -3,7 +3,7 @@ function OrderHistory({ orders }) {
     const token = localStorage.getItem("token");
 
     fetch(
-      `http://127.0.0.1:8000/invoice/${orderId}`,
+      `https://ecommerce-website-7rjn.onrender.com/invoice/${orderId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

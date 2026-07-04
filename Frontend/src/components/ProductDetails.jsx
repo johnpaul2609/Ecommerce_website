@@ -19,7 +19,7 @@ function ProductDetails({
   const isWishlisted = !!wishlistItem;
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/products/${id}`)
+    fetch(`https://ecommerce-website-7rjn.onrender.com/products/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setProduct(data);
