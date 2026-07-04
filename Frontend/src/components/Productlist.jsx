@@ -25,9 +25,10 @@ function ProductList({
 
   const categories = [
     "All",
-    "Mobile",
-    "Laptop",
-    "airpods",
+    "Mobiles",
+    "Laptops",
+    "Headphones",
+    "Smart Watches",
   ];
 
   return (
@@ -87,10 +88,9 @@ function ProductList({
               className={`
                 px-6 py-3 rounded-full font-semibold
                 transition-all duration-300
-                ${
-                  selectedCategory === category
-                    ? "bg-blue-600 text-white shadow-lg scale-105"
-                    : "bg-white text-slate-700 shadow hover:bg-blue-100"
+                ${selectedCategory === category
+                  ? "bg-blue-600 text-white shadow-lg scale-105"
+                  : "bg-white text-slate-700 shadow hover:bg-blue-100"
                 }
               `}
             >
