@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import Login from "./components/Login"
 import Register from "./components/Register"
 import Navbar from "./components/Navbar"
-import ProductList from "./components/Productlist";
-import Profile from "./components/profile";
+import ProductList from "./components/ProductList";
+import Profile from "./components/Profile";
 
 import Cart from "./components/Cart"
 import OrderHistory from "./components/OrderHistory"
