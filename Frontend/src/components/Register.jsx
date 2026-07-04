@@ -42,7 +42,7 @@ function Register({ setShowRegister }) {
       setLoading(true);
 
       const response = await fetch(
-        "http://127.0.0.1:8000/register",
+        "https://ecommerce-website-7rjn.onrender.com/register",
         {
           method: "POST",
           headers: {
