@@ -10,6 +10,10 @@ from routes.cart import router as cart_router
 from routes.orders import router as order_router
 from routes.wishlist import router as wishlist_router
 
+from database import engine
+
+print("Connected DB:", engine.url)
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
