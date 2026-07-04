@@ -3,14 +3,15 @@ import { useState, useEffect } from "react";
 import Login from "./components/Login"
 import Register from "./components/Register"
 import Navbar from "./components/Navbar"
-import ProductList from "./components/ProductList"
+import ProductList from "./components/Productlist";
+import Profile from "./components/profile";
+
 import Cart from "./components/Cart"
 import OrderHistory from "./components/OrderHistory"
 import AdminDashboard from "./components/AdminDashboard";
 import AdminProducts from "./components/AdminProducts";
 import AdminOrders from "./components/AdminOrders";
 import ForgotPassword from "./components/ForgotPassword";
-import Profile from "./components/Profile";
 import Wishlist from "./components/Wishlist";
 import ProductDetails from "./components/ProductDetails";
 import { Routes, Route } from "react-router-dom";
