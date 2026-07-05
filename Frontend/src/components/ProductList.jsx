@@ -35,14 +35,14 @@ function ProductList({
     <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200">
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-cyan-900 text-white py-16 shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+      <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-cyan-900 text-white py-8 md:py-16 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 text-center">
 
-          <h1 className="text-5xl font-bold mb-4">
+          <h1 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4">
             🛒 JP Ecommerce Store
           </h1>
 
-          <p className="text-xl text-slate-300">
+          <p className="text-lg md:text-xl text-slate-300">
             Discover Amazing Products at the Best Prices
           </p>
 

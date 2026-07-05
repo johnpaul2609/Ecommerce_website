@@ -659,7 +659,7 @@ function App() {
       <Route
         path="/"
         element={
-          <div style={{ padding: "20px" }}>
+          <div className="px-4 py-6 md:px-8">
             {!isLoggedIn ? (
               showRegister ? (
                 <Register
