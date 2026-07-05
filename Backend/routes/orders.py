@@ -351,11 +351,15 @@ def download_invoice(
     
 @router.post("/create-payment")
 def create_payment(amount: float):
+    try:
+        payment = client.order.create({
+            "amount": int(amount * 100),
+            "currency": "INR",
+            "payment_capture": 1
+        })
+        return payment
 
-    payment = client.order.create({
-        "amount": int(amount * 100),
-        "currency": "INR",
-        "payment_capture": 1
-    })
-
-    return payment
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
