@@ -23,7 +23,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "https://ecommerce-website-pvuu.vercel.app",
-        "https://ecommerce-website-e8py.vercel.app"
+        "https://ecommerce-website-e8py.vercel.app",
+        "https://ecommerce-website-by2m.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
