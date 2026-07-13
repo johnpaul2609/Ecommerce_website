@@ -31,7 +31,7 @@ function ProductDetails({
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-10">
+    <div className="max-w-5xl mx-auto px-4 py-6 md:p-10">
 
       <button
         onClick={() => navigate(-1)}
@@ -40,7 +40,7 @@ function ProductDetails({
         ← Back
       </button>
 
-      <div className="grid md:grid-cols-2 gap-10">
+      <div className="grid md:grid-cols-2 gap-6 md:gap-10">
 
         <img
           src={product.image_url}
@@ -50,7 +50,7 @@ function ProductDetails({
 
         <div>
 
-          <h1 className="text-4xl font-bold mb-4">
+          <h1 className="text-2xl md:text-4xl font-bold mb-4">
             {product.name}
           </h1>
 
@@ -58,7 +58,7 @@ function ProductDetails({
             {product.description}
           </p>
 
-          <h2 className="text-3xl font-bold text-blue-600 mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-blue-600 mb-4">
             ₹{product.price}
           </h2>
 
@@ -70,7 +70,7 @@ function ProductDetails({
             Category: {product.category}
           </p>
 
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <button
               onClick={() => addToCart(product.id)}
               disabled={product.stock_quantity === 0}

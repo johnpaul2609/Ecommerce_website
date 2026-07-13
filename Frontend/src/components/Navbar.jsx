@@ -41,59 +41,59 @@ function Navbar({
           </div>
 
           {/* Navigation Buttons */}
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+          <div className="flex flex-row items-center gap-1 overflow-x-auto whitespace-nowrap w-full pb-2 md:pb-0 md:justify-center md:gap-3">
 
             <button
               onClick={loadProducts}
               className="
-                flex items-center gap-1 md:gap-2
+                flex items-center gap-1
                 bg-white/10
                 text-white
-                px-3 py-2 md:px-5 md:py-2
-                rounded-lg md:rounded-xl
-                text-sm md:text-base
+                px-2 py-1.5
+                rounded-lg
+                text-xs
                 hover:bg-white/20
                 transition-all
                 duration-300
               "
             >
-              <FaStore />
+              <FaStore size={12} />
               Products
             </button>
 
             <button
               onClick={viewCart}
               className="
-                flex items-center gap-1 md:gap-2
+                flex items-center gap-1
                 bg-white/10
                 text-white
-                px-3 py-2 md:px-5 md:py-2
-                rounded-lg md:rounded-xl
-                text-sm md:text-base
+                px-2 py-1.5
+                rounded-lg
+                text-xs
                 hover:bg-white/20
                 transition-all
                 duration-300
               "
             >
-              <FaShoppingCart />
+              <FaShoppingCart size={12} />
               Cart
             </button>
 
             <button
               onClick={viewOrders}
               className="
-                flex items-center gap-1 md:gap-2
+                flex items-center gap-1
                 bg-white/10
                 text-white
-                px-3 py-2 md:px-5 md:py-2
-                rounded-lg md:rounded-xl
-                text-sm md:text-base
+                px-2 py-1.5
+                rounded-lg
+                text-xs
                 hover:bg-white/20
                 transition-all
                 duration-300
               "
             >
-              <FaBoxOpen />
+              <FaBoxOpen size={12} />
               Orders
             </button>
 
@@ -102,54 +102,54 @@ function Navbar({
             <button
               onClick={viewProfile}
               className="
-              flex items-center gap-1 md:gap-2
+              flex items-center gap-1
               bg-white/10
               text-white
-              px-3 py-2 md:px-5 md:py-2
-              rounded-lg md:rounded-xl
-              text-sm md:text-base
+              px-2 py-1.5
+              rounded-lg
+              text-xs
               hover:bg-white/20
               transition-all
               duration-300
             "
             >
-              <FaUser />
+              <FaUser size={12} />
               Profile
             </button>
 
             <button
               onClick={viewWishlist}
               className="
-                flex items-center gap-1 md:gap-2
+                flex items-center gap-1
                 bg-white/10
                 text-white
-                px-3 py-2 md:px-5 md:py-2
-                rounded-lg md:rounded-xl
-                text-sm md:text-base
+                px-2 py-1.5
+                rounded-lg
+                text-xs
                 hover:bg-white/20
                 transition-all
                 duration-300
               "
             >
-              <FaHeart />
+              <FaHeart size={12} />
               Wishlist
             </button>
 
             <button
               onClick={logoutUser}
               className="
-              flex items-center gap-1 md:gap-2
+              flex items-center gap-1
               bg-red-500
               text-white
-              px-3 py-2 md:px-5 md:py-2
-              rounded-lg md:rounded-xl
-              text-sm md:text-base
+              px-2 py-1.5
+              rounded-lg
+              text-xs
               hover:bg-red-600
               transition-all
               duration-300
             "
             >
-              <FaSignOutAlt />
+              <FaSignOutAlt size={12} />
               Logout
             </button>
 

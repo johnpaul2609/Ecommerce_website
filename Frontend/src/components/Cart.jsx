@@ -16,14 +16,14 @@ function Cart({
   setPaymentMethod,
 }) {
   return (
-    <div className="min-h-screen bg-slate-100 p-6">
+    <div className="min-h-screen bg-slate-100 px-3 py-6 md:p-6">
 
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
         <div className="mb-8">
 
-          <h1 className="text-4xl font-bold text-slate-800 flex items-center gap-3">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-800 flex items-center gap-3">
             <FaShoppingCart />
             My Cart
           </h1>
@@ -59,11 +59,13 @@ function Cart({
                     bg-white
                     rounded-2xl
                     shadow-lg
-                    p-5
+                    p-4
+                    md:p-5
                     flex
                     flex-col
                     md:flex-row
-                    gap-5
+                    gap-4
+                    md:gap-5
                     items-center
                   "
                 >
@@ -73,8 +75,10 @@ function Cart({
                     src={item.image_url}
                     alt={item.product_name}
                     className="
-                      w-40
-                      h-32
+                      w-full
+                      h-40
+                      md:w-40
+                      md:h-32
                       object-cover
                       rounded-xl
                     "

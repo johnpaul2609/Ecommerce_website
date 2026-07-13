@@ -24,7 +24,7 @@ function OrderHistory({ orders }) {
       });
   };
   return (
-    <div className="min-h-screen bg-slate-100 p-6">
+    <div className="min-h-screen bg-slate-100 px-3 py-6 md:p-6">
 
       {/* Header */}
       <div className="max-w-6xl mx-auto mb-8">
@@ -153,7 +153,7 @@ function OrderHistory({ orders }) {
 
               {/* Total */}
               {/* Total + Invoice */}
-              <div className="mt-6 flex justify-between items-center">
+              <div className="mt-6 flex flex-wrap justify-between items-center gap-4">
 
                 <button
                   onClick={() => downloadInvoice(order.id)}

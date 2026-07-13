@@ -52,7 +52,7 @@ function ProductList({
       <div className="max-w-7xl mx-auto px-6 py-10">
 
         {/* Search */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-6 md:mb-8">
           <input
             type="text"
             placeholder="🔍 Search Products..."
@@ -63,8 +63,8 @@ function ProductList({
             className="
               w-full
               max-w-xl
-              px-5
-              py-4
+              px-4 md:px-5
+              py-2 md:py-4
               rounded-full
               border
               border-slate-300
@@ -72,13 +72,13 @@ function ProductList({
               focus:outline-none
               focus:ring-2
               focus:ring-blue-500
-              text-lg
+              text-base md:text-lg
             "
           />
         </div>
 
         {/* Categories */}
-        <div className="flex justify-center flex-wrap gap-4 mb-8">
+        <div className="flex justify-center flex-wrap gap-2 md:gap-4 mb-6 md:mb-8">
           {categories.map((category) => (
             <button
               key={category}
@@ -86,7 +86,9 @@ function ProductList({
                 setSelectedCategory(category)
               }
               className={`
-                px-6 py-3 rounded-full font-semibold
+                px-4 md:px-6 py-2 md:py-3
+                rounded-full font-semibold
+                text-sm md:text-base
                 transition-all duration-300
                 ${selectedCategory === category
                   ? "bg-blue-600 text-white shadow-lg scale-105"
@@ -100,8 +102,8 @@ function ProductList({
         </div>
 
         {/* Product Count */}
-        <div className="text-center mb-8">
-          <span className="bg-white px-5 py-2 rounded-full shadow font-semibold text-slate-700">
+        <div className="text-center mb-6 md:mb-8">
+          <span className="bg-white px-4 md:px-5 py-1 md:py-2 rounded-full shadow font-semibold text-slate-700 text-sm md:text-base">
             {filteredProducts.length} Products Found
           </span>
         </div>
@@ -110,11 +112,11 @@ function ProductList({
         <div
           className="
             grid
-            grid-cols-1
+            grid-cols-2
             sm:grid-cols-2
             md:grid-cols-3
             lg:grid-cols-4
-            gap-8
+            gap-3 md:gap-8
           "
         >
           {filteredProducts.map((product) => (

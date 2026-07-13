@@ -29,7 +29,7 @@ function ProductCard({
       "
     >
       {/* Product Image */}
-      <div className="overflow-hidden relative">
+      <div className="overflow-hidden relative aspect-square">
         <img
           src={product.image_url}
           alt={product.name}
@@ -38,7 +38,7 @@ function ProductCard({
           }
           className="
             w-full
-            h-52
+            h-full
             object-cover
             hover:scale-110
             transition-transform
@@ -59,10 +59,10 @@ function ProductCard({
           }}
           className={`
             absolute
-            top-2
-            right-2
+            top-1
+            right-1
             bg-white/80
-            p-2
+            p-1
             rounded-full
             hover:bg-white
             transition-colors
@@ -73,23 +73,23 @@ function ProductCard({
             }
           `}
         >
-          <FaHeart />
+          <FaHeart size={14} />
         </button>
       </div>
 
       {/* Product Details */}
-      <div className="p-5">
+      <div className="p-2 md:p-4">
 
         {/* Category Badge */}
-        <div className="mb-3">
+        <div className="mb-1">
           <span
             className="
               bg-blue-100
               text-blue-700
-              px-3
-              py-1
+              px-2
+              py-0.5
               rounded-full
-              text-xs
+              text-[10px]
               font-semibold
             "
           >
@@ -103,10 +103,10 @@ function ProductCard({
             navigate(`/product/${product.id}`)
           }
           className="
-            text-xl
+            text-sm md:text-base
             font-bold
             text-slate-800
-            mb-2
+            mb-1
             line-clamp-1
             cursor-pointer
             hover:text-blue-600
@@ -119,20 +119,20 @@ function ProductCard({
         <p
           className="
             text-slate-500
-            text-sm
-            h-12
+            text-[10px] md:text-xs
+            h-8 md:h-10
             overflow-hidden
-            mb-4
+            mb-1
           "
         >
           {product.description}
         </p>
 
         {/* Price */}
-        <div className="mb-3">
+        <div className="mb-1">
           <span
             className="
-              text-2xl
+              text-base md:text-lg
               font-bold
               text-blue-600
             "
@@ -142,34 +142,34 @@ function ProductCard({
         </div>
 
         {/* Stock */}
-        <div className="mb-5">
+        <div className="mb-2">
           {product.stock_quantity > 0 ? (
             <span
               className="
                 bg-green-100
                 text-green-700
-                px-3
-                py-1
+                px-2
+                py-0.5
                 rounded-full
-                text-sm
+                text-[10px]
                 font-semibold
               "
             >
-              In Stock ({product.stock_quantity})
+              Stock: {product.stock_quantity}
             </span>
           ) : (
             <span
               className="
                 bg-red-100
                 text-red-700
-                px-3
-                py-1
+                px-2
+                py-0.5
                 rounded-full
-                text-sm
+                text-[10px]
                 font-semibold
               "
             >
-              Out Of Stock
+              Out
             </span>
           )}
         </div>
@@ -184,9 +184,10 @@ function ProductCard({
           }
           className={`
             w-full
-            py-3
-            rounded-xl
+            py-1.5
+            rounded-lg
             font-semibold
+            text-xs md:text-sm
             transition-all
             duration-300
             ${
@@ -197,8 +198,8 @@ function ProductCard({
           `}
         >
           {product.stock_quantity === 0
-            ? "Out Of Stock"
-            : "🛒 Add To Cart"}
+            ? "Out"
+            : "Add"}
         </button>
 
       </div>
